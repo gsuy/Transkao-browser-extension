@@ -1,29 +1,53 @@
 let DATA = null;
-fetch(chrome.extension.getURL("/database/data.json"))
+fetch(chrome.extension.getURL("/database/data_encode.json"))
   .then((resp) => resp.json())
-  .then(function (jsonData) {
-    DATA = jsonData;
+  .then(function (arrData) {
+    DATA = arrData;
   });
 
 chrome.extension.onMessage.addListener(function (msg, sender, sendResponse) {
-  if (msg.action === "transkao") {
-    entryElement(document.body);
+  if (msg.action === "encode") {
+    encodeEntryElement(document.body);
+    return true;
+  }else if(msg.action === "decode"){
+    decodeEntryElement(document.body);
     return true;
   }
 });
 
-function entryElement(obj) {
+function encodeEntryElement(obj) {
   if (obj.hasChildNodes()) {
     obj.childNodes.forEach((element) => {
       if (element.nodeType === Text.TEXT_NODE) {
         let text = element.textContent.trim();
         if (text !== "") {
           for (var key in DATA) {
-            element.textContent = element.textContent.replace(key, DATA[key]);
+            element.textContent = element.textContent.replace(DATA[key],'[T_T]->'+key);
           }
+          element.textContent = element.textContent.replace(',','<[T_T]>');
+
         }
       } else {
-        entryElement(element);
+        encodeEntryElement(element);
+      }
+    });
+  }
+  return;
+}
+
+function decodeEntryElement(obj) {
+  if (obj.hasChildNodes()) {
+    obj.childNodes.forEach((element) => {
+      if (element.nodeType === Text.TEXT_NODE) {
+        let text = element.textContent.trim();
+        if (text !== "") {
+          for (var key in DATA) {
+            element.textContent = element.textContent.replace('[T_T]->'+key, DATA[key]);
+          }
+          element.textContent = element.textContent.replace('<[T_T]>',',');
+        }
+      } else {
+        decodeEntryElement(element);
       }
     });
   }

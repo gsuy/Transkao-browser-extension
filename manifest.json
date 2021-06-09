@@ -9,7 +9,8 @@
     "128": "/img/logo.png"
   },
   "web_accessible_resources": [
-    "/database/data.json"
+    "/database/data_encode.json",
+    "hello.py"
   ],
   "permissions": [
     "tabs",
