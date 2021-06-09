@@ -11,13 +11,13 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.create({
-  title: "decode this page",
-  onclick: decode,
+  title: "encode this page",
+  onclick: encode,
 });
 
 chrome.contextMenus.create({
-  title: "encode this page",
-  onclick: encode,
+  title: "decode this page",
+  onclick: decode,
 });
 
 function encode() {
