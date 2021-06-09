@@ -22,9 +22,9 @@ function encodeEntryElement(obj) {
         let text = element.textContent.trim();
         if (text !== "") {
           for (var key in DATA) {
-            element.textContent = element.textContent.replace(DATA[key],'[T_T]->'+key);
+            element.textContent = element.textContent.replace(DATA[key],'Z'+key+'TK'+key+'Z');
           }
-          element.textContent = element.textContent.replace(',','<[T_T]>');
+          element.textContent = element.textContent.replace(',','ZTKZ');
 
         }
       } else {
@@ -42,9 +42,9 @@ function decodeEntryElement(obj) {
         let text = element.textContent.trim();
         if (text !== "") {
           for (var key in DATA) {
-            element.textContent = element.textContent.replace('[T_T]->'+key, DATA[key]);
+            element.textContent = element.textContent.replace('Z'+key+'TK'+key+'Z', DATA[key]);
           }
-          element.textContent = element.textContent.replace('<[T_T]>',',');
+          element.textContent = element.textContent.replace('ZTKZ',',');
         }
       } else {
         decodeEntryElement(element);
